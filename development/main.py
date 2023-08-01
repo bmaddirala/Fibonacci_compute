@@ -1,15 +1,14 @@
 from flask import Flask, request, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
-from flask_cors import CORS
 
+#Flask app and SQLAlchemy db created
 db = SQLAlchemy()
 app = Flask(__name__)
 db_name = 'fibonacci_numbers.db'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + db_name
 db.init_app(app)
 
-CORS(app)
-
+#For the DB, BigInteger is used instead of Integer so we could have arbitrary large values too
 class Fibonacci_table(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     value = db.Column(db.BigInteger, nullable = False)
@@ -18,9 +17,10 @@ class Fibonacci_table(db.Model):
 def home():
     if request.method == 'POST':
         n = request.form.get('input', type=int)
-        return redirect(url_for('fibonacci_saver', n=n))
+        return redirect(url_for('fibonacci_checker', n=n))
     return render_template('index.html')
 
+#Computation and avoiding Recomputation in one function
 @app.route('/result', methods=['GET', 'POST'])
 def fibonacci_checker():
     if request.method == 'POST':
