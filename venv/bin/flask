@@ -1,4 +1,4 @@
-#!/Users/bhogesh/Desktop/fibonacci_compute/venv/bin/python3
+#!/Users/bhogesh/Desktop/fibonacci_compute/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
